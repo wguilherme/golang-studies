@@ -1,0 +1,6 @@
+Welcome
+
+The language was created in 2006.
+It prioritizes performance, efficiency, easy compilation, and ease of use.
+It also supports concurrency, parallelism, and multi-core processing.
+There is a version of the Todd course available in Portuguese.
