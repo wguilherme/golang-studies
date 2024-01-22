@@ -25,7 +25,7 @@ func main() {
 
 	// compile template with custom functions
 
-	templateContent := "{{.Count}} items are made of {{ sum 3 1 }}"
+	templateContent := "{{.Count}} {{ if default true false }} oi {{ end }}"
 
 	tmpl, err := template.New("test").Funcs(funcs).Parse(templateContent)
 
