@@ -1,0 +1,6 @@
+
+go mod init github.com/wguilherme/golang-studies
+
+//
+go: to add module requirements and sums:
+go mod tidy
