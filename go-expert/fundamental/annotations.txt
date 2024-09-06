@@ -1,0 +1,9 @@
+no mesmo diretório, todos arquivos devem apontar pro mesmo package
+é possível, por exemplo, declarar uma variável em uma arquivo e
+utilizá-la em outro, desde que ambos sejam do mesmo pkg.
+
+No entanto, para que isso funcione, é necessário executar dessa forma:
+
+go run * 
+ou 
+go run <dir>/*
