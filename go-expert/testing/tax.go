@@ -15,3 +15,22 @@ func CalculateTax(amount float64) (float64, error) {
 	}
 	return 5.0, nil
 }
+
+type SaveTaxRepository interface {
+	Save(amount float64) error
+}
+
+func CalculateTaxAndSave(amount float64, repository SaveTaxRepository) error {
+
+	if amount <= 0 {
+		return errors.New("amount must be greater than 0")
+	}
+
+	tax, err := CalculateTax(amount)
+
+	if err != nil {
+		return err
+	}
+
+	return repository.Save(tax)
+}

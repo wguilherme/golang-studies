@@ -2,6 +2,7 @@ package main
 
 const a = "Hello, World!"
 
+// declarar múltiplas variáveis de uma vez
 var (
 	b bool    = true
 	c int     = 10
@@ -11,6 +12,7 @@ var (
 
 func main() {
 	a := "X" // string
+	// o go infere o tipo na variável.
 	println(a)
 }
 
