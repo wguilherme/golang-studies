@@ -7,6 +7,11 @@ export
 command?=run
 logging_level?=info
 
+
+.PHONY: dev
+dev:
+	@GOEXPERIMENT=noregabi air -- -logging_level=$(logging_level)
+
 .PHONY: run
 run:
 	@GOEXPERIMENT=noregabi go run ./cmd/worker-receiver/main.go -logging_level=$(logging_level)

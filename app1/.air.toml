@@ -1,0 +1,16 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go build -o ./tmp/main ./cmd/worker-receiver/main.go"
+  bin = "./tmp/main"
+  delay = 1000
+  exclude_dir = ["assets", "tmp", "vendor"]
+  include_ext = ["go"]
+  exclude_regex = ["_test.go"]
+
+[log]
+  time = false
+
+[screen]
+  clear_on_rebuild = true
