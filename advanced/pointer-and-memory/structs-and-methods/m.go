@@ -11,6 +11,10 @@ type User struct {
 
 func (u *User) UpdateName(newName string) {
 	// pointer receiver
+	// nesse conntexto, o "u" é equivalente a um self ou this em outras linguagens
+	// em Go, a convenção é usar o primeiro caractere de cada palavra do tipo
+	// por exemplo, se o tipo fosse "UserAccount", o primeiro caractere de cada palavra seria "ua"
+	// então o "u" é o primeiro caractere de "User"
 	u.Name = newName
 }
 
