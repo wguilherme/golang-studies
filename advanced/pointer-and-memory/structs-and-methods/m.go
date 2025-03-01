@@ -15,6 +15,10 @@ func (u *User) UpdateName(newName string) {
 	// em Go, a convenção é usar o primeiro caractere de cada palavra do tipo
 	// por exemplo, se o tipo fosse "UserAccount", o primeiro caractere de cada palavra seria "ua"
 	// então o "u" é o primeiro caractere de "User"
+	// aqui usamos pointer receiver porque queremos modificar o valor do campo Name
+	// se usássemos um receiver normal, o campo Name não seria modificado
+	// a convennção eem Go é que se um método modifica o valor de um campo, ele deve ser um pointer receiver
+	// outra convenção é que se um dos métodos de um tipo é um pointer receiver, todos os outros métodos devem ser pointer receivers
 	u.Name = newName
 }
 
