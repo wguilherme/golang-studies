@@ -9,6 +9,7 @@ type SqrtError struct {
 	msg string
 }
 
+// implementa a interface error
 func (s SqrtError) Error() string { return s.msg }
 
 func raizQuadrada(x float64) (float64, error) {
