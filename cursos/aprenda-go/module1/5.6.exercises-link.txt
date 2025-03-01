@@ -1,1 +1,0 @@
-https://github.com/vkorbes/aprendago/issues?q=is%3Aopen+is%3Aissue+label%3Aexerc%C3%ADcio
