@@ -2,6 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
 	"net/http"
 	"strconv"
 
@@ -41,8 +44,8 @@ func main() {
 
 	r.Group(func(r chi.Router) {
 		r.Use(jsonMiddleware)
-		r.Get("/users/{id}", handleGetUsers(db))
-		// r.Post("/users", handlePostUsers(db))
+		r.Get("/users/{id:[0-9]+}", handleGetUsers(db))
+		r.Post("/users", handlePostUsers(db))
 	})
 
 	if err := http.ListenAndServe(":8080", r); err != nil {
@@ -71,5 +74,52 @@ func handleGetUsers(db map[int64]User) http.HandlerFunc {
 			}
 			w.Write(data)
 		}
+	}
+}
+
+/*
+teste com CURL:
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"id": "2","Username":"user","Role":"user","Password":"123"}' \
+  http://localhost:8080/users
+
+curl -X GET http://localhost:8080/users/2
+
+*/
+
+func handlePostUsers(db map[int64]User) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		r.Body = http.MaxBytesReader(w, r.Body, 1000) // 1KB
+		data, err := io.ReadAll(r.Body)
+		if err != nil {
+			var maxErr *http.MaxBytesError
+			if errors.As(err, &maxErr) {
+				http.Error(
+					w,
+					"body too large",
+					http.StatusRequestEntityTooLarge,
+				)
+				return
+			}
+
+			fmt.Println(err)
+
+			http.Error(
+				w,
+				"something went wrong",
+				http.StatusInternalServerError,
+			)
+			return
+		}
+
+		var user User
+		if err := json.Unmarshal(data, &user); err != nil {
+			http.Error(w, "invalid body", http.StatusUnprocessableEntity)
+			return
+		}
+
+		db[user.ID] = user
+		w.WriteHeader(http.StatusCreated)
 	}
 }
